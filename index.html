@@ -1,0 +1,48 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Moderation Pipeline</title>
+    <style>
+      body { max-width: 720px; margin: 48px auto; padding: 0 20px; font: 16px/1.5 system-ui, sans-serif; }
+      textarea { box-sizing: border-box; min-height: 170px; padding: 12px; width: 100%; font: inherit; }
+      button { margin-top: 12px; padding: 10px 16px; font: inherit; cursor: pointer; }
+      pre { overflow: auto; padding: 16px; background: #f3f4f6; white-space: pre-wrap; }
+    </style>
+  </head>
+  <body>
+    <h1>Text moderation demo</h1>
+    <p>Paste text to receive model scores and an allow, review, or block decision.</p>
+    <textarea id="text" placeholder="Type or paste text here"></textarea>
+    <br>
+    <button id="moderate">Check content</button>
+    <pre id="result">Your result will appear here.</pre>
+    <script>
+      const button = document.querySelector("#moderate");
+      const text = document.querySelector("#text");
+      const result = document.querySelector("#result");
+
+      button.addEventListener("click", async () => {
+        if (!text.value.trim()) {
+          result.textContent = "Please enter some text first.";
+          return;
+        }
+        result.textContent = "Checking…";
+        try {
+          const response = await fetch("/moderate/text", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ text: text.value })
+          });
+          const data = await response.json();
+          result.textContent = response.ok
+            ? JSON.stringify(data, null, 2)
+            : `Error: ${data.detail || "Request failed."}`;
+        } catch (error) {
+          result.textContent = "Could not reach the server. Check that Uvicorn is running.";
+        }
+      });
+    </script>
+  </body>
+</html>

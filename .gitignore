@@ -1,0 +1,54 @@
+# ── Virtual environment ───────────────────────────────────────────────────────
+.venv/
+venv/
+env/
+ENV/
+
+# ── Python cache & compiled files ─────────────────────────────────────────────
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+*.pyc
+
+# ── Distribution / packaging ──────────────────────────────────────────────────
+dist/
+build/
+*.egg-info/
+*.egg
+.eggs/
+
+# ── Pytest & coverage ─────────────────────────────────────────────────────────
+.pytest_cache/
+.coverage
+coverage.xml
+htmlcov/
+
+# ── HuggingFace / Transformers model cache ────────────────────────────────────
+# (downloaded weights for unitary/toxic-bert land here)
+~/.cache/huggingface/
+.cache/
+
+# ── Environment variables & secrets ──────────────────────────────────────────
+.env
+.env.*
+*.secret
+
+# ── IDE / editor ──────────────────────────────────────────────────────────────
+.vscode/
+.idea/
+*.suo
+*.user
+
+# ── OS noise ──────────────────────────────────────────────────────────────────
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# ── Logs ──────────────────────────────────────────────────────────────────────
+*.log
+logs/
+
+# ── Uvicorn / FastAPI dev artefacts ───────────────────────────────────────────
+*.pid
+
